@@ -705,3 +705,36 @@ body .wc-stripe-error li{
     padding: 20px 40px;
     margin: 0 0 60px 0;
 }
+.show-filter {
+    background: #ffffff;
+    border: none;
+    outline: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.show-filter .fal.fa-angle-down {
+    font-size: 20px;
+    margin-left: 10px;
+}
+.wrap-item-filter {
+    position: relative;
+    margin-right: 20px;
+}
+.drop-filter {
+    background: #ffffff;
+    width: 200px;
+    padding: 20px 30px;
+    position: absolute;
+    left: 0;
+    top: 60px;
+    box-shadow: 2px 2px 10px #000000;
+    display: none;
+}
+.filter-hotel {
+    display: flex;
+    align-items: center;
+}

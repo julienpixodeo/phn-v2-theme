@@ -41,17 +41,13 @@ if ($list_event) {
     }
 }
 
-// var_dump($data_hotel);
 if ($data_hotel) {
     foreach ($data_hotel as $data) {
         $hotels_data[] = $data['hotel_id'];
 
     }
 }
-// echo 'aaaaaaaaaaaaaaaaaaaa';
-// var_dump($hotels_data);
 
-// $from =($lan === 'french') ?  'A partir de' : 'From';
 $from = ($lan === 'french') ? 'Prix' : 'Price';
 ?>
 <div class="container-hotel-list-wrap">
@@ -66,9 +62,23 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
     <div class="filter-hotel-wrap">
         <form action="" class="filter-hotel">
             <div class="wrap-item-filter">
-                <button>Price<i class="fal fa-angle-down"></i></button>
+                <button class="show-filter">Price<i class="fal fa-angle-down"></i></button>
                 <div class="drop-filter">
                     Test
+                </div>
+            </div>
+
+            <div class="wrap-item-filter">
+                <button class="show-filter">Stars<i class="fal fa-angle-down"></i></button>
+                <div class="drop-filter">
+                    Test Stars
+                </div>
+            </div>
+
+            <div class="wrap-item-filter">
+                <button class="show-filter">Distance <i class="fal fa-angle-down"></i></button>
+                <div class="drop-filter">
+                    Test distance 
                 </div>
             </div>
         </form>
@@ -211,6 +221,11 @@ if (!empty($location)) {
                 });
             }
             initMap();
+
+            $('body').on('click','.show-filter',function(event){
+                event.preventDefault();
+                $(this).closest('.wrap-item-filter').find('.drop-filter').slideToggle(100);
+            })
         });
     </script>
 <?php }

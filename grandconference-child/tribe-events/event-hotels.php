@@ -224,6 +224,7 @@ if (!empty($location)) {
 
             $('body').on('click','.show-filter',function(event){
                 event.preventDefault();
+                $('.drop-filter').not($(this).closest('.wrap-item-filter').find('.drop-filter')).slideUp(100);
                 $(this).closest('.wrap-item-filter').find('.drop-filter').slideToggle(100);
             })
         });

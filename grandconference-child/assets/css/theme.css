@@ -694,6 +694,9 @@ body .wc-stripe-error li{
 .list-hotel-map-wrap {
     width: 33.33%;
     padding-left: 40px;
+    position: sticky;
+    height: 1200px;
+    top: 40px;
 }
 #list-hotel-map {
     width: 100%;
@@ -701,24 +704,38 @@ body .wc-stripe-error li{
     display: block;
 }
 .filter-hotel-wrap {
-    background: hsl(349deg 100% 59% / 70%);
+    background: hsl(349deg 100% 59% / 50%);
     padding: 20px 40px;
     margin: 0 0 60px 0;
 }
 .show-filter {
-    background: #ffffff;
-    border: none;
-    outline: none;
-    padding: 15px 30px;
-    font-size: 16px;
-    cursor: pointer;
+    box-sizing: border-box ;
+    margin: 0 ;
+    padding:8px 10px;
+    width: auto;
+    outline: 0 ;
+    border: 1px solid #ddd ;
+    border-radius: 4px ;
+    background: #ffffff ;
+    color: #001a2c ;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+.show-filter:hover {
+    border: 1px solid #FF2D55 ;
+    background: #FF2D55 ;
+    color: #ffffff ;
+}
+.show-filter:hover .fal.fa-angle-down {
+    color: #ffffff ;
 }
 .show-filter .fal.fa-angle-down {
     font-size: 20px;
     margin-left: 10px;
+    color: #001a2c ;
 }
 .wrap-item-filter {
     position: relative;
@@ -727,12 +744,22 @@ body .wc-stripe-error li{
 .drop-filter {
     background: #ffffff;
     width: 200px;
-    padding: 20px 30px;
+    padding: 24px;
     position: absolute;
     left: 0;
-    top: 60px;
-    box-shadow: 2px 2px 10px #000000;
+    top: 50px;
     display: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 36px 2px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: normal;
+    background: #ffffff;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(0, 0, 0, 0.2);
+    -o-border-image: initial;
+    border-image: initial;
+    border-radius: 4px;
 }
 .filter-hotel {
     display: flex;

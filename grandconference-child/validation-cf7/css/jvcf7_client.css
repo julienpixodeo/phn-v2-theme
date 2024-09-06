@@ -1,0 +1,6 @@
+.wpcf7-form label.error{color:#ff2d55; font-size:11px; float:none; padding-left:5px;}
+/*DON't show error msg */
+.noErrorMsg.wpcf7-form label.error{ display:none !important; height:0px !important; width:0px !important; overflow:hidden !important;}
+strong.invalid{ color:#ff2d55;}
+strong.valid{ color:green;}
+#multiple-form .wpcf7-not-valid-tip{display: none !important;}

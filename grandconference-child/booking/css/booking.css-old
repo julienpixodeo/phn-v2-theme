@@ -1,0 +1,168 @@
+.select_type_of_room {
+    width: calc(100% - 43px) !important;
+    margin-bottom: 15px !important;
+}
+.woocommerce-order-received .woocommerce-error{
+    display: none;
+}
+.ui-widget.ui-widget-content {
+    width: calc(100% - 8px) !important;
+}
+.calendar-active .dp-highlight:not(.ui-state-disabled) .ui-state-default {
+    background: #FF2D55;
+    color: #FFF;
+    border: 1px solid #ff2d55;
+}
+.ui-datepicker.ui-datepicker-multi {
+    width: 100% !important;
+}
+.ui-datepicker-multi .ui-datepicker-group {
+    float: none;
+}
+#datepicker {
+    height: 300px;
+    overflow-x: scroll;
+}
+.ui-widget {
+    font-size: 100%
+}
+.ui-datepicker td span, .ui-datepicker td a {
+    text-align: center;
+}
+body{
+    position: relative;
+}
+.wrap-loader{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    display: none;
+    z-index: 1;
+    border-width: 3px 2px 3px 2px;
+    border-style: solid dotted solid dotted;
+    border-color: #FF2D55 rgb(255 255 255 / 0%) #000000 rgb(151 107 93 / 0%);
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: 1s rotate linear infinite;
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+}
+.ajax-load .loader {
+    display: inline-block;
+}
+.loader-bg{
+    display: none;
+}
+.ajax-load .loader-bg  {
+    position: fixed;
+    content:"";
+    width: 100%;
+    height:100%;
+    background-color:rgb(255 255 255 / 70%);
+    left:0;
+    top:0;
+    display: block;
+    z-index: 1;
+}
+.loader:before , .loader:after{
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom-color:#000;
+    transform: translate(-10px, 19px) rotate(-35deg);
+}
+.loader:after {
+    border-color: #FF2D55 #0000 #0000 #0000;
+    transform: translate(32px, 3px) rotate(-35deg);
+}
+@keyframes rotate {
+    100%{    transform: rotate(360deg)}
+}
+#calendar-booking,.wrap-qty-js,.add-to-cart-hotel,.price-typeroom-new,.description-typeroom-new{
+    display: none;
+}
+.wrap-qty-js,.add-to-cart-hotel,.description-typeroom-new{
+    margin-top: 15px;
+}
+.wrap-qty-js.disable {
+    pointer-events: none;
+}
+.form-booking .title {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+.ui-datepicker td span, .ui-datepicker td a {
+    padding: .1em;
+    font-size: 13px;
+}
+.ui-datepicker th {
+    padding: 0.4em .3em;
+    font-size: 13px !important;
+}
+.woocommerce-table__product-name .wc-item-meta li:nth-child(3),
+.woocommerce-table__product-name .wc-item-meta li:nth-child(4){
+    display: none !important;
+}
+.day-available .ui-state-default {
+    border: 1px solid #dad55e;
+    background: #fffa90;
+    color: #777620;
+}
+button.disabled {
+    background-color: light-dark(rgba(239, 239, 239, 0.3), rgba(19, 1, 1, 0.3));
+    color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+    border-color: light-dark(rgba(118, 118, 118, 0.3), rgba(195, 195, 195, 0.3));
+    pointer-events: none;
+}
+.woocommerce-cart-form .blockOverlay:not(.blockOverlay-custom){
+    display: none !important;
+}
+.woocommerce .blockOverlay-custom::before {
+    height: 1em;
+    width: 1em;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -.5em;
+    margin-top: -.5em;
+    content: "";
+    animation: spin 1s ease-in-out infinite;
+    background: url(../images/loader.svg) center center;
+    background-size: cover;
+    line-height: 1;
+    text-align: center;
+    font-size: 2em;
+    color: rgba(0, 0, 0, .75);
+}
+.field-text-html {
+    padding: 15px 0 0 0;
+    display: none;
+}
+.woocommerce-message.error {
+    background: #ff4a52 !important;
+    border-color: #ff4a52 !important;
+}
+.woocommerce-page .product-quantity.error .quantity input.qty{
+    border: 1px solid #ff4a52 !important;
+}
+/* Chrome, Safari, Edge, Opera */
+.woocommerce-page .product-quantity .quantity input.qty::-webkit-outer-spin-button,
+.woocommerce-page .product-quantity .quantity input.qty::-webkit-inner-spin-button {
+  /* -webkit-appearance: none;
+  margin: 0; */
+}
+
+/* Firefox */
+.woocommerce-page .product-quantity .quantity input.qty[type=number] {
+  /* -moz-appearance: textfield; */
+}

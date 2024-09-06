@@ -1,0 +1,44 @@
+.event_type-of-room #select_typeOfRoom{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.content-event{
+    margin-top: 10px;
+}
+.woocommerce-order-received .woocommerce .woocommerce-table--order-details .wc-item-meta{
+    margin-left: 0;
+}
+.woocommerce-order-received .woocommerce .woocommerce-table--order-details .wc-item-meta li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.woocommerce-order-received .woocommerce .woocommerce-table--order-details .wc-item-meta p{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+.wrap-title-image {
+    display: flex;
+    flex-wrap: wrap;
+}
+.wrap-title-image .tribe-events-event-image {
+    width: 30%;
+    margin-right: 15px;
+}
+.wrap-title-image .tribe-events-single-event-title {
+    width: calc(70% - 15px);
+    font-size: 42px;
+}
+
+@media (max-width:991px){
+    .wrap-title-image {
+        display: block;
+    }
+    .wrap-title-image .tribe-events-event-image {
+        width: 100%;
+        margin-right: 0;
+    }
+    .wrap-title-image .tribe-events-single-event-title {
+        width: 100%;
+    }
+}

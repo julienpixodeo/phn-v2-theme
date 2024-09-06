@@ -1,0 +1,444 @@
+#event_custom_box_id select{
+    width: 100%;
+}
+#event_custom_box_id .title-hotels {
+    margin-bottom: 0;
+    font-weight: 700;
+    margin-top: 0;
+}
+.wrap-box-data-variations {
+    margin: 20px 0;
+}
+#event_custom_box_id .variations {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
+#event_custom_box_id .data-variations {
+    display: none;
+}
+#event_custom_box_id .box-data-variations {
+    margin-bottom: 10px;
+}
+.loader {
+    width: 48px;
+    height: 48px;
+    display: none;
+    z-index: 1;
+    border-width: 3px 2px 3px 2px;
+    border-style: solid dotted solid dotted;
+    border-color: #FF2D55 rgb(255 255 255 / 0%) #000000 rgb(151 107 93 / 0%);
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: 1s rotate linear infinite;
+    position: absolute;
+    top: calc(50% - 40px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.ajax-load .loader {
+    display: inline-block;
+}
+.ajax-load::after {
+    position: absolute;
+    content:"";
+    width: 100%;
+    height:100%;
+    background-color:rgb(255 255 255 / 70%);
+    left:0;
+    top:0;
+}
+.loader:before , .loader:after{
+    content: '';
+    top: 0;
+    left: 0;
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom-color:#000;
+    transform: translate(-10px, 19px) rotate(-35deg);
+}
+.loader:after {
+    border-color: #FF2D55 #0000 #0000 #0000;
+    transform: translate(32px, 3px) rotate(-35deg);
+}
+@keyframes rotate {
+    100%{    transform: rotate(360deg)}
+}
+.ui-datepicker-clear-month {
+    position: absolute;
+    top: 9px;
+    right: 32px;
+    height: 100%;
+    line-height: 100%;
+    display: inline;
+    cursor: pointer;
+    color: red!important;
+}
+.modal-calendar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid #777777;
+    display: none;
+}
+.modal-set-stock-day {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999999;
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid #777777;
+    width: 300px;
+    display: none;
+}
+.open-modal .modal-calendar{
+    display: block;
+}
+#event_custom_box_id .ui-datepicker {
+    width: 900px;
+}
+#event_custom_box_id .box-type {
+    width: 15%;
+}
+#event_custom_box_id .ui-datepicker td span, 
+#event_custom_box_id .ui-datepicker td a {
+    padding: 25px 0.2em;
+    text-align: center;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+}
+.close-icon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    float: right;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+/* .open-modal::after {
+    position: fixed;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 70%);
+    left: 0;
+    top: 0;
+    display: block;
+    z-index: 9999;
+} */
+.bg-modal-open,.bg-modal-open-stock{
+    display: none;
+}
+.open-modal .bg-modal-open {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 70%);
+    left: 0;
+    top: 0;
+    display: block;
+    z-index: 9999;
+}
+.open-modal-stock .modal-set-stock-day{
+    display: block;
+}
+.open-modal-stock .bg-modal-open-stock {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 70%);
+    left: 0;
+    top: 0;
+    display: block;
+    z-index: 999999;
+}
+.ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day:not(.day-available) a,
+.ui-datepicker-calendar .ui-datepicker-today:not(.day-available) a {
+    background: #f6f6f6 !important;
+    color: #777c80 !important;
+}
+.ui-datepicker td {
+    padding: 2px 5px !important;
+}
+body .ui-datepicker .day-available a,
+.ui-datepicker-calendar .ui-datepicker-today.ui-datepicker-current-day.day-available a{
+    background: #FF2D55;
+    color: #ffffff !important;
+}
+.modal-set-stock-day span{
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+}
+.modal-set-stock-day label{
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+.modal-set-stock-day .stock-day {
+    width: 100%;
+    margin: 5px 0 14px 0;
+    border-radius: 0;
+    height: 40px;
+}
+.btn-action-day-available button {
+    border: 1px solid #cccccc;
+    background: transparent;
+    outline: none;
+    width: 80px;
+    height: 35px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.ui-widget.ui-widget-content {
+    border: none !important;
+}
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 26px;
+    margin-top: 0 !important;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.save-each-date-select {
+    margin-top: 10px !important;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.box-meta-listhotel.active span {
+    margin-left: 20px;
+}
+
+.box-meta-listhotel span {
+    margin-left: 0px;
+}
+
+.box-meta-listhotel.active span svg {
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+}
+
+.box-meta-listhotel span svg {
+    width: 30px;
+    display: none;
+
+}
+/*  */
+.save-event-data-button.active span {
+    margin-left: 10px;
+}
+
+.save-event-data-button span {
+    margin-left: 0px;
+}
+
+.save-event-data-button.active span svg {
+    animation: rotate 2s linear infinite;
+    display: inline-block;
+    fill:#fff;
+}
+
+.save-event-data-button span svg {
+    width: 15px;
+    display: none;
+
+}
+/*  */
+#save-event-data-button {
+    margin: 15px 0 10px 15px;
+}
+
+.wrap-label-select {
+    margin-left: 15px;
+}
+
+.wrap-label-select label {
+    display: block;
+    font-weight: 500;
+    padding: 0;
+    line-height: 1.4;
+    font-size: 13px;
+}
+
+#hotel-select {
+    margin: 15px 0 10px 15px;
+    width: calc(100% - 30px);
+    border-radius: 5px;
+    color: #444;
+    line-height: 28px;
+    font-size: 13px;
+}
+
+.box-typeOfRoom .spinner-border {
+    display: none;
+}
+
+#button-add-typeOfRoom {
+    margin: 15px 0 10px 15px;
+    display: block;
+}
+
+.box-typeOfRoom {
+    padding: 0 15px;
+    margin-top: 15px;
+    border-bottom: 1px solid #cccccc57;
+    padding-bottom: 15px;
+}
+
+.box-typeOfRoom .wrap_type-of-room {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
+    gap: 10px;
+}
+
+.box-typeOfRoom .wrap_type-of-room .box_type {
+    width: calc(100% / 3 - 10px);
+}
+
+.box-typeOfRoom .wrap_type-of-room .box_type input {
+    width: 100%;
+}
+
+.box-typeOfRoom .wrap_type-of-room .box_type p {
+    margin: 0;
+}
+
+.box-typeOfRoom .wrap_type-of-room .box_type .font-w-bold {
+    font-weight: 600;
+}
+
+.box-typeOfRoom .title-hotels {
+    margin-bottom: 0;
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-header .box-title {
+    display: flex;
+    align-items: center;
+}
+
+.box-header .box-action .button-remove {
+    color: red;
+    border-color: red;
+    margin-left: 10px;
+    border: 1px solid;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+}
+
+.box-header .box-action .button-remove:hover {
+    background: #cccccc4a;
+}
+
+.box-typeOfRoom .box-content {
+    display: none;
+}
+
+.box-typeOfRoom .box-content.active {
+    display: block;
+}
+.field-text-hotel {
+    width: 100%;
+    margin: 15px 0 0 0;
+    display: none;
+}

@@ -59,6 +59,16 @@ function phn_scripts() {
 		$scriptData = jvcf7_get_data_for_client_script();
   		wp_localize_script( 'jvcf7_validation', 'scriptData', $scriptData );
     }
+	if(is_singular('tribe_events')){
+		wp_enqueue_style('hotel-list-css', get_stylesheet_directory_uri() . '/filter-hotel/hotel-list.css', array(), time(), 'all');
+		wp_enqueue_script('jquery-ui-script', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', array('jquery'), time(), true);
+		wp_enqueue_script('filter-script', get_stylesheet_directory_uri() . '/filter-hotel/filter.js', array('jquery'), time(), true);
+		wp_localize_script('filter-script', 'jaxsr',
+			array(
+				'url' => admin_url('admin-ajax.php'),
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'phn_scripts' );
 
@@ -137,3 +147,8 @@ require get_theme_file_path('/booking/functions/booking.php');
  * functions export
  */
 require get_theme_file_path('/export/functions/export.php');
+
+/**
+ * functions filter hotel
+ */
+require get_theme_file_path('/filter-hotel/filter-hotel.php');

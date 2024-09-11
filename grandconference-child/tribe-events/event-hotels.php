@@ -60,35 +60,27 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
         </div>
     </div>
     <div class="filter-hotel-wrap">
-        <form action="" class="filter-hotel">
-            <div class="wrap-item-filter">
-                <button class="show-filter">Price<i class="fal fa-angle-down"></i></button>
-                <div class="drop-filter">
-                    Test
-                </div>
-            </div>
-
-            <div class="wrap-item-filter">
-                <button class="show-filter">Stars<i class="fal fa-angle-down"></i></button>
-                <div class="drop-filter">
-                    Test Stars
-                </div>
-            </div>
-
-            <div class="wrap-item-filter">
-                <button class="show-filter">Distance <i class="fal fa-angle-down"></i></button>
-                <div class="drop-filter">
-                    Test distance 
-                </div>
-            </div>
-        </form>
+        <?php 
+            set_query_var('event_id', $event_id);
+            get_template_part('filter-hotel/form-filter'); 
+        ?>
         <div class="show-hide-map">
-
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider round"></span>
+            </label>
         </div>
+    </div>
+    <div class="count-filter-wrap">
+        <a href="<?php echo home_url() ?>">Accueil</a>
+        <span>></span>
+        <span class="count-hotel"><?php echo count($data_hotel); ?> hotels</span>
     </div>
     <div class="wrap-list-hotel">
         <div class="list-hotels-event">
             <?php
+            $locations = array();
+
             if ($data_hotel) {
                 // Step 1: Collect all the hotel data with the minimum price
                 $hotels = array();
@@ -109,8 +101,9 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
                         $attr = '';
                     }
 
+                    $gallery = get_field('gallery', $hotel_id);
+
                     if (!$featured_img_url) {
-                        $gallery = get_field('gallery', $hotel_id);
                         if ($gallery) {
                             $featured_img_url = wp_get_attachment_image_url($gallery[0], 'full');
                         } else {
@@ -130,6 +123,22 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
                         }
                     }
 
+                    $gallery_images_urls = array();
+
+                    if ($featured_img_url) {
+                        $gallery_images_urls[] = $featured_img_url; 
+                    }
+
+                    if ($gallery) {
+                        foreach ($gallery as $image_id) {
+                            $gallery_images_urls[] = wp_get_attachment_image_url($image_id, 'full');
+                        }
+                    } 
+
+                    if (!$featured_img_url && empty($gallery)) {
+                        $gallery_images_urls[] = home_url('/wp-content/uploads/woocommerce-placeholder.png');
+                    }
+
                     $minPrice = !empty($price_array) ? min($price_array) : 0;
 
                     $hotels[] = array(
@@ -141,6 +150,21 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
                         'attr' => $attr,
                         'minPrice' => $minPrice,
                     );
+
+                    if(!empty($address)){
+                        $locations[] = [
+                            'id' => $hotel_id,
+                            'lat' => $address['lat'],
+                            'lng' => $address['lng'],
+                            'gallery_images' => $gallery_images_urls,
+                            'title' => get_the_title($hotel_id),
+                            'address' => $address['address'],
+                            'minPrice' => $from . " " . $minPrice . get_woocommerce_currency_symbol(get_option('woocommerce_currency')),
+                            'price' => $minPrice . " €",
+                            'url' => $url,
+                            'hotel_stars' => $hotel_stars
+                        ];
+                    }
                 }
 
                 // Step 2: Sort the collected data by the minimum price
@@ -196,37 +220,126 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
     
 </div>
 <?php
-if (!empty($location)) {
+if(!empty($locations)){
     ?>
     <script>
         jQuery(document).ready(function ($) {
-            function initMap() {
-                var myLatLng = { lat: <?php echo $location['lat']; ?>, lng: <?php echo $location['lng']; ?>};
-                var map = new google.maps.Map(document.getElementById('list-hotel-map'), {
-                    zoom: 16,
-                    disableDefaultUI: true,
-                    center: myLatLng
+            async function initMap() {
+                // Load necessary Google Maps libraries
+                const { Map } = await google.maps.importLibrary("maps");
+                const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+                const locations = <?php echo json_encode($locations); ?>;
+
+                // Calculate center of the map
+                let latSum = 0, lngSum = 0;
+                locations.forEach(location => {
+                    latSum += location.lat;
+                    lngSum += location.lng;
                 });
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        fillColor: '#ff2d55',
-                        fillOpacity: 0.5,
-                        scale: 50,
-                        strokeColor: 'transparent',
-                        strokeWeight: 0,
-                    },
+                const centerLat = latSum / locations.length;
+                const centerLng = lngSum / locations.length;
+
+                // Initialize the map
+                const map = new Map(document.getElementById("list-hotel-map"), {
+                    zoom: 4,
+                    center: { lat: centerLat, lng: centerLng },
+                    mapId: "4504f8b37365c3d0",
+                });
+
+                const bounds = new google.maps.LatLngBounds();
+                let currentInfoWindow = null; // Track the currently open InfoWindow
+
+                // Function to create a marker
+                function createMarker(location) {
+                    const priceTag = document.createElement("div");
+                    priceTag.className = "price-tag";
+                    priceTag.textContent = location.price;
+
+                    return new AdvancedMarkerElement({
+                        map,
+                        position: { lat: location.lat, lng: location.lng },
+                        content: priceTag,
+                    });
+                }
+
+                // Function to generate the gallery HTML
+                function createGalleryHtml(location) {
+                    if (location.gallery_images && location.gallery_images.length) {
+                        const images = location.gallery_images.map(imageUrl =>
+                            `<a href="${location.url}"><img src="${imageUrl}" alt="Hotel image" class="gallery-img"></a>`
+                        ).join('');
+                        return `<div class="slick-slider">${images}</div>`;
+                    }
+                    return '';
+                }
+
+                // Loop through locations and add markers
+                locations.forEach((location) => {
+                    const marker = createMarker(location);
+                    const starHtml = '<i class="fas fa-star"></i>'.repeat(location.hotel_stars);
+                    const galleryHtml = createGalleryHtml(location);
+
+                    const infowindow = new google.maps.InfoWindow({
+                        content: `<div class="item-hotels-map item-hotels-map-${location.id}">
+                                    <div>${galleryHtml}</div>
+                                    <div class="wrap-title-rating">
+                                        <a href="${location.url}" class="title">${location.title}</a>
+                                        <div class="review-hotel">
+                                            <div class="list-star">${starHtml}</div>
+                                        </div>
+                                    </div>
+                                    <div class="infor"><span>${location.address}</span></div>
+                                    <h3 class="price">${location.minPrice}</h3>
+                                </div>`
+                    });
+
+                    // Marker click event
+                    marker.addListener('click', () => {
+                        if (currentInfoWindow) {
+                            currentInfoWindow.close();
+                        }
+                        infowindow.open(map, marker);
+                        currentInfoWindow = infowindow;
+                    });
+
+                    // Initialize Slick slider when the infowindow opens
+                    infowindow.addListener('domready', () => {
+                        $(`.item-hotels-map-${location.id} .slick-slider`).slick({
+                            dots: true,
+                            infinite: true,
+                            speed: 300,
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        });
+                    });
+
+                    bounds.extend(marker.position);
+                });
+
+                // Adjust map to fit all markers
+                map.fitBounds(bounds);
+
+                // Close InfoWindow when clicking outside of the map
+                $(document).on('click', function (e) {
+                    if (!$('#list-hotel-map').has(e.target).length && currentInfoWindow) {
+                        currentInfoWindow.close();
+                        currentInfoWindow = null;
+                    }
+                });
+
+                // Prevent InfoWindow closure when clicking on map itself
+                google.maps.event.addListener(map, 'click', function () {
+                    if (currentInfoWindow) {
+                        currentInfoWindow.close();
+                        currentInfoWindow = null;
+                    }
                 });
             }
-            initMap();
 
-            $('body').on('click','.show-filter',function(event){
-                event.preventDefault();
-                $('.drop-filter').not($(this).closest('.wrap-item-filter').find('.drop-filter')).slideUp(100);
-                $(this).closest('.wrap-item-filter').find('.drop-filter').slideToggle(100);
-            })
+            initMap();
         });
     </script>
-<?php }
+    <?php
+}
+?>

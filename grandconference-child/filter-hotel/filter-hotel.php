@@ -130,6 +130,7 @@ function filter_hotel() {
 
                 if (!empty($address)) {
                     $locations[] = [
+                        'id' => $hotel_id,
                         'lat' => $address['lat'],
                         'lng' => $address['lng'],
                         'gallery_images' => $gallery_images_urls,
@@ -152,7 +153,7 @@ function filter_hotel() {
         // Display hotels
         foreach ($hotels as $hotel) {
             ?>
-            <div class="item-hotels">
+            <div class="item-hotels" data-id="<?php echo $hotel['hotel_id'] ?>">
                 <a href="<?= esc_url($hotel['url']) ?>" <?= esc_attr($hotel['attr']) ?>>
                     <img src="<?= esc_url($hotel['featured_img_url']); ?>" alt="" class="thumbnail">
                 </a>

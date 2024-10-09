@@ -250,44 +250,43 @@ function add_to_cart_hotel(){
     $msg = '<a href="' . $cart_url . '" tabindex="1" class="button wc-forward">' . $view_cart . '</a> ';
     $num_day = ($end_day_ts - $start_day_ts)/86400;
 
-    // if (ticket_in_cart() == true) {
     $id_ticket = (int) id_ticket_in_cart();
-        // if ($id_ticket === $event_id){
     $is_stock_add = is_stock_add($event_id,$variation_id,$hotel_id,$current_day_ts,$start_day_ts,$end_day_ts,$quantity);
-    if($is_stock_add == true){
-        session_start();
-        $_SESSION['event_id'] = $event_id;
-        $cart_data = array(
-            "start_day" => $start_day_str,
-            "start_day_timestamp" => $start_day_ts,
-            "end_day" => $end_day_str,
-            "end_day_timestamp" => $end_day_ts,
-            "maximum" => $max,
-            "number_day" => $num_day,
-            "price" => $price,
-            "variation_id" => $variation_id,
-            "event_id" => $event_id,
-            "hotel_id" => $hotel_id,
-            "current_day_ts" => $current_day_ts
-        );
 
-        $add_to_cart = WC()->cart->add_to_cart($variation_id, $quantity, 0, array(), $cart_data);
-        
-        if ($add_to_cart) {
-            $msg .= $msg_success;
-            $success = true;
-        } else {
-            $message .= $message_error;
-        }
+    if(!is_user_logged_in()){
+        $message_login = ($lan === 'french') ? 'Impossible d\'ajouter l\'hôtel au panier, veuillez vous connecter' : 'Cannot add hotel to cart, please log in';
+        $msg .= $message_login;
+        $success = false;
     }else{
-        $msg .= $msg_limit;
+        if($is_stock_add == true){
+            session_start();
+            $_SESSION['event_id'] = $event_id;
+            $cart_data = array(
+                "start_day" => $start_day_str,
+                "start_day_timestamp" => $start_day_ts,
+                "end_day" => $end_day_str,
+                "end_day_timestamp" => $end_day_ts,
+                "maximum" => $max,
+                "number_day" => $num_day,
+                "price" => $price,
+                "variation_id" => $variation_id,
+                "event_id" => $event_id,
+                "hotel_id" => $hotel_id,
+                "current_day_ts" => $current_day_ts
+            );
+
+            $add_to_cart = WC()->cart->add_to_cart($variation_id, $quantity, 0, array(), $cart_data);
+            
+            if ($add_to_cart) {
+                $msg .= $msg_success;
+                $success = true;
+            } else {
+                $message .= $message_error;
+            }
+        }else{
+            $msg .= $msg_limit;
+        }
     }
-        // }else{
-        //     $msg .= $msg_err_add_hotel;
-        // }
-    // }else {
-    //     $msg .= $msg_add_tickets_first;
-    // }
 
     $quantity_total = quantity_cart();
 
@@ -397,9 +396,9 @@ function update_stock_each_day_variation_hotel_of_event($order_id) {
                             echo $stock_day_data[$variation_id][$timestamp];
                             $date_available['stock'] -= $stock_day_data[$variation_id][$timestamp];
                             // Remove date_available if stock becomes zero
-                            if ($date_available['stock'] <= 0) {
-                                unset($variation['date_available'][$key]);
-                            }
+                            // if ($date_available['stock'] <= 0) {
+                            //     unset($variation['date_available'][$key]);
+                            // }
                         }
                     }
                     // Re-index the array to maintain numeric keys
@@ -596,6 +595,7 @@ function create_invoice_number_order($order_id) {
         update_post_meta( $order_id, 'invoice_number', $invoice_number );
         update_post_meta( $order_id, 'event_id_of_hotel', $event_id );
     }
+    update_post_meta( $order_id, 'event_id_order', $event_id );
 }
 
 // get array day timestamp available variation hotel

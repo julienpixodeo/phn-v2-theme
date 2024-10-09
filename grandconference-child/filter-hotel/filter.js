@@ -22,8 +22,8 @@ jQuery(document).ready(function ($) {
     $("#address-range").slider({
         range: true,
         min: 0,
-        max: 1000,
-        values: [0, 1000],
+        max: 50,
+        values: [0, 50],
         slide: function(event, ui) {
             $("#address-amount").text(ui.values[0] + "Km - " + ui.values[1] + "Km");
             $("#address-amount-btn").text(ui.values[0] + "Km - " + ui.values[1] + "Km");
@@ -186,6 +186,7 @@ jQuery(document).ready(function ($) {
             const priceTag = document.createElement("div");
             priceTag.className = "price-tag";
             priceTag.textContent = location.price;
+            priceTag.dataset.id = location.id;
 
             return new AdvancedMarkerElement({
                 map,
@@ -267,4 +268,26 @@ jQuery(document).ready(function ($) {
             }
         });
     }
+
+    // Mouseenter event for hover
+    $('body').on('mouseenter','.list-hotels-event .item-hotels',function(){
+        var id_hotel = $(this).data('id');
+        $('.price-tag').each(function(index, element) {
+            var id_hotel_map = $(this).data('id');
+            if(id_hotel_map == id_hotel){
+                $(this).addClass('active');
+                $(this).closest('.yNHHyP-marker-view').addClass('active');
+            }
+        });        
+    });
+
+    // Mouseleave event for unhover
+    $('body').on('mouseleave','.list-hotels-event .item-hotels',function(){
+        $('.price-tag').each(function(index, element) {
+            $(this).removeClass('active');
+        });  
+        $('.yNHHyP-marker-view').each(function(index, element) {
+            $(this).removeClass('active');
+        });  
+    });
 });

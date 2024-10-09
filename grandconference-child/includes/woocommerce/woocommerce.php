@@ -94,7 +94,7 @@ function custom_modify_product_permalink($permalink, $post)
             }
         }
 
-        if (get_post_type($post->ID) === 'hotel') {
+        if (get_post_type($post->ID) === 'hotel' && !empty($id_ticket)) {
             $permalink .= $id_ticket;
         }
     }
@@ -261,7 +261,7 @@ function action_phn_woocommerce_thankyou($order_id)
                 }
             }
 
-            if($result){
+            if(isset($result)){
                 foreach($result as $key => $value){
                     $table_leads_detail = $wpdb->prefix . 'vxcf_leads_detail';
                     $wpdb->query( $wpdb->prepare(
@@ -371,7 +371,7 @@ function multiple_forms_shortcode()
                         $class = ($i == $quantity) ? 'last' : '';
                         ?>
                         <div class="toggle form-<?php echo $i; ?> <?php echo $class; ?>">
-                            <h2>Form Ticket <?php echo $i; ?></h2>
+                            <h2><?php echo get_field('title_form',get_the_ID()); ?> <?php echo $i; ?></h2>
                             <?php echo do_shortcode('[contact-form-7 id="' . $form_event . '"]'); ?>
                         </div>
                         <?php
@@ -931,7 +931,7 @@ function meta_box_invoice_number($post){
 }
 
 
-add_action( 'woocommerce_order_status_changed', 'custom_process_on_order_status_change', 10, 4 );
+// add_action( 'woocommerce_order_status_changed', 'custom_process_on_order_status_change', 10, 4 );
 
 function custom_process_on_order_status_change( $order_id, $old_status, $new_status, $order ) {
 

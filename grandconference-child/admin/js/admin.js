@@ -116,13 +116,15 @@ jQuery(document).ready(function($) {
                 // Retrieve the variations ID and input values for maximum and price
                 var variations_id = $(this).data('variations'),
                     maximum = $(this).find('.maximum').val(),
-                    price = $(this).find('.price').val();
+                    price = $(this).find('.price').val(),
+                    date = $(this).find('.date').val();
 
                 // Create an object to hold the data for the current variation
                 var variations = {
                     variations_id: variations_id,
                     maximum: maximum,
                     price: price,
+                    date: date,
                     date_available: []  // Initialize an empty array for available dates
                 };
 

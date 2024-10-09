@@ -377,7 +377,7 @@ function wc_remove_product_from_cart($product_id)
     $cart_items = $cart->get_cart();
     $id_ticket = id_ticket_in_cart();
     $event_id = get_post_meta($product_id, 'events_of_product', true);
-    if($id_ticket != $event_id){
+    if($id_ticket != $event_id ){
         WC()->cart->empty_cart();
     }
 }

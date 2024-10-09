@@ -175,7 +175,7 @@ $from = ($lan === 'french') ? 'Prix' : 'Price';
                 // Step 3: Display the sorted data
                 foreach ($hotels as $hotel) {
                     ?>
-                    <div class="item-hotels">
+                    <div class="item-hotels" data-id="<?php echo $hotel['hotel_id'] ?>">
                         <a href="<?= $hotel['url'] ?>" <?= $hotel['attr'] ?>>
                             <img src="<?= $hotel['featured_img_url']; ?>" alt="" class="thumbnail">
                         </a>
@@ -255,6 +255,7 @@ if(!empty($locations)){
                     const priceTag = document.createElement("div");
                     priceTag.className = "price-tag";
                     priceTag.textContent = location.price;
+                    priceTag.dataset.id = location.id;
 
                     return new AdvancedMarkerElement({
                         map,

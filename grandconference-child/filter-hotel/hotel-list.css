@@ -383,6 +383,19 @@ body #stars-select {
     border-radius: 20px !important;
     padding: 4px 8px 4px 8px !important;
 }
+.yNHHyP-marker-view.active{
+    z-index: 9999;
+}
+.price-tag.active {
+    color: #ffffff;
+    background-color: #FF2D55;
+    box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+.price-tag.active::after {
+    background-color: #FF2D55;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
 .price-tag::after {
     content: "";
     left: calc(50% - 4px);

@@ -78,6 +78,14 @@ $hide_book_your_hotel = get_field('hide_book_your_hotel',$event_id);
             <a href="<?php echo esc_url($link . 'partners'); ?>" class="themelink <?php echo esc_attr($class_partners); ?>"><?php echo esc_html($text_menu_evpartners); ?></a>
         </li>
         <?php cart_icon_phn(); ?>
+        <?php
+            $link = (is_user_logged_in()) ? home_url('compte') : home_url('se-connecter');
+        ?>
+        <li class="li-user-icon">
+            <a href="<?php echo $link; ?>" class="themelink user-icon">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
     </ul>
 
     <?php

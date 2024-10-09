@@ -45,6 +45,7 @@ function get_data_hotel_event($data_hotel_event){
                         $variations_data = $value['variations_data'];
                         if(!empty($variations_data)){
                             foreach($variations_data as $k => $v){
+                                $date = isset($v['date']) ? $v['date'] : '';
                                 ?>
                                 <div class="variations" data-variations="<?php echo $v['variations_id']; ?>">
                                     <div class="box-type">
@@ -57,6 +58,10 @@ function get_data_hotel_event($data_hotel_event){
                                     <div class="box-type">
                                         <p>Price</p>
                                         <input type="number" name="price" class="price" value="<?php echo $v['price']; ?>">
+                                    </div>
+                                    <div class="box-type">
+                                        <p>Date refund</p>
+                                        <input type="date" name="date" class="date" value="<?php echo $date; ?>">
                                     </div>
                                     <div class="box-type">
                                         <p>Date available</p>
@@ -212,6 +217,10 @@ function select_event_hotel(){
                             <div class='box-type'>
                                 <p>Price</p>
                                 <input type='number' name='price' class='price' value='".$variation->get_price()."'>
+                            </div>
+                            <div class='box-type'>
+                                <p>Date refund</p>
+                                <input type='date' name='date' class='date' value=''>
                             </div>
                             <div class='box-type'>
                                 <p>Date available</p>

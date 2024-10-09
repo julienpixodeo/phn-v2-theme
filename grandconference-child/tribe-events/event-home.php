@@ -43,7 +43,7 @@ $lan = get_field('language',$event_id);
             <?php echo tribe_event_featured_image($event_id, 'full', false); ?>
             <?php echo $title; ?>
         </div>
-        <div class="tribe-events-schedule tribe-clearfix">
+        <div class="tribe-events-schedule tribe-clearfix" style="margin-bottom: 15px;">
             <?php 
                 // if($lan === 'french'){
                 //     echo replace_month_names(tribe_events_event_schedule_details($event_id, '<h2>', '</h2>')); 
@@ -65,7 +65,22 @@ $lan = get_field('language',$event_id);
         <?php do_action('tribe_events_single_event_after_the_content') ?>
     </div>
 </div>
-
+<?php
+$address = get_field('location', $event_id);
+if (!empty($address)) {
+    ?>
+    <div id="map-event" style="margin-bottom:40px;">
+        <?php
+        if (!empty($address['lat']) && !empty($address['lng'])) {
+            ?>
+            <div id="map-details"></div>
+            <?php
+        }
+        ?>
+    </div>
+    <?php
+}
+?>
 <!-- Event header -->
 <div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
     <!-- Navigation -->
@@ -111,3 +126,28 @@ $lan = get_field('language',$event_id);
 // echo footer_elementor();
 // get_footer(); s
 ?>
+<script>
+    jQuery(document).ready(function ($) {
+        function initMap() {
+            var myLatLng = { lat: <?php echo $address['lat']; ?>, lng: <?php echo $address['lng']; ?> };
+            var map = new google.maps.Map(document.getElementById('map-details'), {
+                zoom: 16,
+                disableDefaultUI: true,
+                center: myLatLng
+            });
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: '#ff2d55',
+                    fillOpacity: 0.5,
+                    scale: 50,
+                    strokeColor: 'transparent',
+                    strokeWeight: 0,
+                },
+            });
+        }
+        initMap();
+    });
+</script>

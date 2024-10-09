@@ -21,23 +21,29 @@ function add_tickets_to_cart(){
         $_SESSION['locale'] = 'en_US';
     }
 
-    if($product_id && $quantity){
-        wc_remove_product_from_cart($product_id);
-        $cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity );
-    }
-
-    if ($cart_item_key){
-        $message .= $message_success;
-        $success = true;
+    if(!is_user_logged_in()){
+        $message_login = ($lan === 'french') ? 'Impossible d\'ajouter des billets au panier, veuillez vous connecter' : 'Cannot add tickets to cart, please log in';
+        $message .= $message_login;
+        $success = false;
     }else{
-        $product_quantity = quantity_product_cart($product_id);
-        $quantity_total = $quantity + $product_quantity;
-        if($quantity_total > $stock){
-            $message_limit = str_replace('##',$stock,$message_limit);
-            $message_limit = str_replace('%%',$product_quantity,$message_limit);
-            $message .= $message_limit;
+        if($product_id && $quantity){
+            // wc_remove_product_from_cart($product_id);
+            $cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity );
+        }
+    
+        if ($cart_item_key){
+            $message .= $message_success;
+            $success = true;
         }else{
-            $message .= $message_error;
+            $product_quantity = quantity_product_cart($product_id);
+            $quantity_total = $quantity + $product_quantity;
+            if($quantity_total > $stock){
+                $message_limit = str_replace('##',$stock,$message_limit);
+                $message_limit = str_replace('%%',$product_quantity,$message_limit);
+                $message .= $message_limit;
+            }else{
+                $message .= $message_error;
+            }
         }
     }
 

@@ -1,0 +1,157 @@
+.themelink.user-icon .fas.fa-user-circle {
+    font-size: 22px;
+}
+.themelink.user-icon:hover {
+    background: transparent !important;
+}
+.themelink.user-icon:hover i {
+    color: #FF2D55 !important;
+}
+.themelink.user-icon {
+    padding: 10px 0;
+}
+.li-user-icon{
+    margin:10px 0 !important;
+}
+.box-field input{
+    width: 100%;
+}
+.box-field {
+    margin-bottom: 20px;
+}
+form#login ,#register-client{
+    max-width: 600px;
+    margin: 40px auto 50px;
+    padding: 30px 20px;
+    border: 1px solid #dce0e0;
+    border-radius: 5px;
+}
+.text-center{
+    text-align: center !important;
+}
+#edit-client .message,
+#register-client .message,
+form#login .message{
+    color: #fb0000;
+    font-size: 11px;
+    display: none;
+}
+.submit_button {
+    display: block!important;
+    margin: 15px 0 0 0;
+}
+form .error {
+    width: 100%;
+    margin: 5px 0 -5px 0;
+    color: #fb0000;
+    font-size: 11px;
+}
+.wrap-content-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+}
+.sidebar-account ul li.active{
+    background-color: #FF2D55;
+}
+.sidebar-account ul li.active a{
+    color: #ffffff;
+}
+.sidebar-account ul li {
+    padding: 10px 20px;
+}
+.sidebar-account ul {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0;
+}
+.sidebar-account {
+    width: calc(25% - 32px);
+    border: 1px solid #dce0e0;
+    padding: 0;
+    margin-right: 30px;
+    height: max-content;
+}
+form#edit-client,.wrap-list-order {
+    width: 75%;
+}
+.wrap-list-order .order-box {
+    border: 1px solid #dce0e0;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+.wrap-list-order .order-header h4{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #FF2D55;
+}
+.wrap-list-order .product-name{
+    color: #FF2D55;
+    line-height: 13px;
+    display: block;
+    margin-bottom: 5px;
+}
+.wrap-list-order .order-details {
+    margin-bottom: 15px;
+}
+.wrap-list-order .order-items {
+    margin-top: 15px;
+}
+.wrap-list-order .order-items h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #FF2D55
+}
+.wrap-list-order .product-item {
+    padding: 10px;
+    border: 1px solid #dce0e0;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.wrap-list-order .image-product {
+    width: 155px;
+    height: auto !important;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.wrap-list-order .product-item-content {
+    width: calc(100% - 170px);
+}
+
+.wrap-list-order .woocommerce-Price-amount.amount {
+    margin-left: 5px;
+}
+.wrap-list-order .wrap-price{
+    display: flex;
+}
+.wrap-list-order .refund-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 15px;
+    background-color: #FF2D55;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: normal;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+button.btn.btn-primary {
+    background-color: #FF2D55 !important;
+    border-color: #FF2D55 !important;
+}
+.wrap-list-order .message-box {
+    display: none;
+    margin-top: 10px
+}
+.wrap-list-order .message-box.success {
+    color: #3c763d;
+}
+.wrap-list-order .message-box.error {
+    color: #df201c;
+}

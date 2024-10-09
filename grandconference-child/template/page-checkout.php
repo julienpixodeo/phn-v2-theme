@@ -118,7 +118,24 @@ if(empty($page_show_title))
 				<div class="page_title_content">
                     <h1>
 						<?php 
-						$id_ticket = id_ticket_in_cart();
+						if(isset($wp->query_vars['order-received'])){
+							$id_ticket = 0;
+							$order_id = absint($wp->query_vars['order-received']);
+							$order = wc_get_order( $order_id );
+							foreach ( $order->get_items() as $item_id => $item ) {
+								$product_id = $item->get_product_id();
+								$type = get_post_meta($product_id, 'phn_type_product', true);
+								if ($type === "event") {
+									$id_ticket = get_post_meta($product_id, 'events_of_product', true);
+									break;
+								}
+							}
+							if($id_ticket == 0){
+								$id_ticket = get_post_meta( $order_id, 'event_id_order', true );
+							}
+						}else{
+							$id_ticket = id_ticket_in_cart();
+						}
 						session_start();
 						if($id_ticket == 0){
 							$id_ticket = $_SESSION['event_id'];

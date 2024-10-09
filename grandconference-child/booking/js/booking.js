@@ -99,8 +99,8 @@ jQuery(document).ready(function($) {
 
                     // Get the day, month, and year from the Date object
                     const day = date.getDate();
-                    const month = date.getMonth() + 1; // Months are zero-indexed in JavaScript
-                    // const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    // const month = date.getMonth() + 1; // Months are zero-indexed in JavaScript
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
                     const year = date.getFullYear();
 
                     // Format the date as '4-12-2024'

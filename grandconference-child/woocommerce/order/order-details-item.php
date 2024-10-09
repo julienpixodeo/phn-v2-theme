@@ -58,7 +58,45 @@ if (!apply_filters('woocommerce_order_item_visible', true, $item)) {
         
         do_action('woocommerce_order_item_meta_start', $item_id, $item, $order, false);
 
-        wc_display_item_meta($item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        // wc_display_item_meta($item); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+        $strings = array();
+        $html    = '';
+        $args    = wp_parse_args(
+            $args,
+            array(
+                'before'       => '<ul class="wc-item-meta" style="margin:0"><li>',
+                'after'        => '</li></ul>',
+                'separator'    => '</li><li>',
+                'echo'         => true,
+                'autop'        => false,
+                'label_before' => '<strong class="wc-item-meta-label">',
+                'label_after'  => ':</strong> ',
+            )
+        );
+        $i = 0;
+        foreach ( $item->get_all_formatted_meta_data() as $meta_id => $meta ) {
+            $i++;
+            if($i < 3){
+                $value     = $args['autop'] ? wp_kses_post( $meta->display_value ) : wp_kses_post( make_clickable( trim( $meta->display_value ) ) );
+                $strings[] = $args['label_before'] . wp_kses_post( $meta->display_key ) . $args['label_after'] . $value;
+            }
+        }
+
+        if ( $strings ) {
+            $html = $args['before'] . implode( $args['separator'], $strings ) . $args['after'];
+        }
+
+        $html = apply_filters( 'woocommerce_display_item_meta', $html, $item, $args );
+
+        if ( $args['echo'] ) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            echo $html;
+        } else {
+            return $html;
+        }
+
+        // allow other plugins 
         
         do_action('woocommerce_order_item_meta_end', $item_id, $item, $order, false);
 
